@@ -17,6 +17,7 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
+// Road and intersections endpoints
 const roadPoints = {
   "A": Offset(500, -682),
   "B": Offset(447, -72),
@@ -35,9 +36,12 @@ const roadPoints = {
 class _MyAppState extends State<MyApp> {
   var viewerController = TransformationController();
 
+  // current user position
   var position = Offset.zero;
+
   var searchRadius = 700.0;
 
+  // hard coded roads in map
   final roads = [
     (roadPoints["A"]!, roadPoints["B"]!),
     (roadPoints["B"]!, roadPoints["C"]!),
@@ -53,6 +57,7 @@ class _MyAppState extends State<MyApp> {
     (roadPoints["I"]!, roadPoints["L"]!),
   ];
 
+  // location of parks and name
   final parks = {
     "Park A": const Offset(-862, -560),
     "Park B": const Offset(-1051, 1159),
@@ -60,6 +65,7 @@ class _MyAppState extends State<MyApp> {
     "Park D": const Offset(1235.4, 968.2)
   };
 
+  // helper function to find closest point to nearest road from any location in map, also returns index of road
   (Offset, int) closestPointOnRoad(Offset from) {
     Offset? closestPoint;
     double? distanceSqToPoint;
@@ -77,6 +83,7 @@ class _MyAppState extends State<MyApp> {
     return (closestPoint!, roadIndex!);
   }
 
+  // return nearest park if any in search radius
   String? getNearestPark() {
     String? nearestPark;
     double? distance;
@@ -91,6 +98,7 @@ class _MyAppState extends State<MyApp> {
     return nearestPark;
   }
 
+  // get all parks in search radius
   List<(String, double)> getParksInRadius() {
     List<(String, double)> nearParks = [];
     for (var park in parks.entries) {
@@ -102,6 +110,7 @@ class _MyAppState extends State<MyApp> {
     return nearParks;
   }
 
+  // return path to nearest park
   List<Offset>? getPathToNearestPark() {
     var park = getNearestPark();
     if (park != null) {
@@ -110,6 +119,7 @@ class _MyAppState extends State<MyApp> {
     return null;
   }
 
+  // returns shortest path to given park uusing dijkstra's algorithm
   List<Offset> getPathToPark(String park) {
     var startPoint = closestPointOnRoad(position);
     var endPoint = closestPointOnRoad(parks[park]!);
@@ -185,6 +195,7 @@ class _MyAppState extends State<MyApp> {
     return shortestPath.map((e) => nodeList[e]).toList();
   }
 
+  // convert a list of points to distance
   double pathToDistance(List<Offset> path) {
     var distance = 0.0;
     if (path.isNotEmpty) {
@@ -201,6 +212,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
+    // Some initial values which look good
     position = const Offset(-398.411, -154.895);
     var zoom = 0.321;
     var pos = (309.626, 368.35);
