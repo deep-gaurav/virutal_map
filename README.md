@@ -1,16 +1,11 @@
-# virtual_map_test
+# Virtual Map
 
-A new Flutter project.
+Interact with virtual map and find route to nearest park
 
-## Getting Started
+## Map
+![Map](./assets/map.png)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Interaction
+- Pan by dragging, Pinch/Scroll Wheel to zoom.
+- Tap anywhere to change location to that postion
+- Increase search radius using dropdown
